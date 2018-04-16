@@ -2,12 +2,12 @@
 struct processes
 {
     char name;
-    int a,b,ct,wt,tt,priority,bt1;     
+    int at,b,ct,wt,tt,priority,bt1;     
 }process[20],process1[20];
 void main()
 {
 	struct processes short_queue;
-    int x,time=0,time1,time2,number,total=0,m,pf2=0,number2,s,posi,z,flag=0,bu_t=0,largest;
+    int x,time=0,time1,time2,number,total=0,m,pf2=0,number2,s,posi,z,flag=0;
     float waiting_time=0,turnaround_times= 0;
     printf("\nEnter Total Number of Processes:\t");
     scanf("%d",&number);
@@ -19,11 +19,11 @@ void main()
         scanf("%c",&process[x].name);
         printf("\n Details For Your processor %c::\n",process[x].name);
         printf("Enter The Arrival Time Of Process::");
-        scanf("%d",&process[x].a);
-        printf("Enter The Burst Time Of Process::");
+        scanf("%d",&process[x].at);
+        printf("\nEnter The Burst Time Of Process::");
         scanf("%d",&process[x].b);
         process[x].bt1=process[x].b;
-        printf("Enter The Priority Of Process::\t");
+        printf(" \nEnter The Priority Of Process::\t");
         scanf("%d",&process[x].priority);
     }
     printf("\nEnter Time Quantum for Fixed priority queue::");
@@ -36,24 +36,24 @@ void main()
         posi=x;
         for(z=x+1;z<number;z++)
         {
-            if(process[z].a<process[posi].a)
+            if(process[z].at<process[posi].at)
                 posi=z;
         }
         short_queue=process[x];
         process[x]=process[posi];
         process[posi]=short_queue;
     }
-    time=process[0].a;
+    time=process[0].at;
     for(x=0;number!=0;x++)
     {
     	while(total!=time1)
     	{
     		total++;
-    		if(process[x].a<=time)
+    		if(process[x].at<=time)
     		{
     			for(z=x+1;z<number;z++)
     			{
-    				if(process[z].a==time&&process[z].priority<process[x].priority)
+    				if(process[z].at==time&&process[z].priority<process[x].priority)
     				{
     					process1[pf2]=process[x];
 						pf2++;
@@ -70,11 +70,11 @@ void main()
 			process[x].b--;
 			if(process[x].b==0)
 			{
-				process[x].tt=time-process[x].a;
+				process[x].tt=time-process[x].at;
 				process[x].wt=process[x].tt-process[x].bt1;
 				printf("%c\t|\t%d\t|\t%d\n",process[x].name,process[x].tt,process[x].wt);
-				waiting_time+=time-process[x].a-process[x].bt1; 
-    			turnaround_times+=time-process[x].a;
+				waiting_time+=time-process[x].at-process[x].bt1; 
+    			turnaround_times+=time-process[x].at;
     			for(m=x;m<number-1;m++)
     				process[m]=process[m+1];x--;
     			number--;
@@ -111,11 +111,11 @@ void main()
     	if(process1[total].b==0&&flag==1) 
     	{ 
     		number2--; 
-    		process1[total].tt=time-process1[total].a;
+    		process1[total].tt=time-process1[total].at;
 			process1[total].wt=process1[total].tt-process1[total].bt1; 
 			printf("%c\t|\t%d\t|\t%d\n",process1[total].name,process1[total].tt,process1[total].wt); 
-    		turnaround_times+=time-process1[total].a; 
-    		waiting_time+=time-process1[total].a-process1[total].bt1;
+    		turnaround_times+=time-process1[total].at; 
+    		waiting_time+=time-process1[total].at-process1[total].bt1;
     		for(m=total;m<number2;m++)
     			process1[m]=process1[m+1];total--;
     		flag=0; 
